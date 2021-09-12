@@ -13,6 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.nio.ByteBuffer;
@@ -37,6 +38,21 @@ public class SaintAnnouncement {
         return convertToString(scraping(type));
     }
 
+    @Scheduled(cron = "0 45 * * *")
+    public void scrapAnnouncements() throws Exception {
+        scraping(Constants.BACHELOR);
+        scraping(Constants.SCHOLARSHIP);
+        scraping(Constants.TEACHING_PROFESSION);
+        scraping(Constants.COVID19);
+        scraping(Constants.VOLUNTEER);
+        scraping(Constants.TEACHER_RECRUIT);
+        scraping(Constants.RECRUIT);
+        scraping(Constants.EVENTS);
+        scraping(Constants.FOREIGNER);
+        scraping(Constants.ETC);
+        scraping(Constants.EXCHANGE);
+    }
+
     private List<AnnouncementVo> scraping(String type) throws Exception {
         System.setProperty(Constants.EDGE_DRIVER, Constants.EDGE_DRIVER_PATH);
         WebDriver driver = new EdgeDriver();
@@ -53,7 +69,7 @@ public class SaintAnnouncement {
             String title = listElement.findElement(By.cssSelector("span.d-inline-blcok.m-pt-5")).getText();
             String link = listElement.findElement(By.cssSelector("a.text-decoration-none.d-block.text-truncate")).getAttribute("href");
 
-            boolean isCompleted = true;
+            boolean isCompleted = false;
             String completed = "";
 
             if(listElement.findElements(By.cssSelector("span.tag.ing")).size() != 0) {
@@ -63,9 +79,9 @@ public class SaintAnnouncement {
             }
 
             if(!completed.equals(""))
-                isCompleted = !completed.equals(Constants.PROGRESS);
+                isCompleted = !(completed.compareTo(Constants.PROGRESS) == 0);
 
-            AnnouncementVo announcement = new AnnouncementVo(Constants.BACHELOR, date, title, link, isCompleted);
+            AnnouncementVo announcement = new AnnouncementVo(type, date, title, link, isCompleted);
             scraps.add(announcement);
 
             announcementMapper.insertAnnouncement(announcement);

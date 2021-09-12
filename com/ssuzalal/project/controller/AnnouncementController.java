@@ -31,48 +31,48 @@ public class AnnouncementController {
     }
 
     @RequestMapping(value = "/scholarship.do", method = RequestMethod.POST)
-    public String scholarship() throws Exception {
-        return saintAnnouncement.announcementJsonString(Constants.SCHOLARSHIP);
+    public @ResponseBody List<AnnouncementVo> scholarship() throws Exception {
+        return mapper.selectAnnouncements(Constants.SCHOLARSHIP);
     }
 
     @RequestMapping(value = "/exchange.do", method = RequestMethod.POST)
-    public String exchange() throws Exception {
-        return saintAnnouncement.announcementJsonString(Constants.SCHOLARSHIP);
+    public @ResponseBody List<AnnouncementVo> exchange() throws Exception {
+        return mapper.selectAnnouncements(Constants.SCHOLARSHIP);
     }
 
     @RequestMapping(value = "/foreigner.do", method = RequestMethod.POST)
-    public String foreigner() throws Exception {
-        return saintAnnouncement.announcementJsonString(Constants.FOREIGNER);
+    public @ResponseBody List<AnnouncementVo> foreigner() throws Exception {
+        return mapper.selectAnnouncements(Constants.FOREIGNER);
     }
 
     @RequestMapping(value = "/recruit.do", method = RequestMethod.POST)
-    public String recruit() throws Exception {
-        return saintAnnouncement.announcementJsonString(Constants.RECRUIT);
+    public @ResponseBody List<AnnouncementVo> recruit() throws Exception {
+        return mapper.selectAnnouncements(Constants.RECRUIT);
     }
 
     @RequestMapping(value = "/events.do", method = RequestMethod.POST)
-    public String events() throws Exception {
-        return saintAnnouncement.announcementJsonString(Constants.EVENTS);
+    public @ResponseBody List<AnnouncementVo> events() throws Exception {
+        return mapper.selectAnnouncements(Constants.EVENTS);
     }
 
-    @RequestMapping(value = "/teaching.do", method = RequestMethod.POST)
-    public String teaching() throws Exception {
-        return saintAnnouncement.announcementJsonString(Constants.TEACHING_PROFESSION);
+    @RequestMapping(value = "/teaching_profession.do", method = RequestMethod.POST)
+    public @ResponseBody List<AnnouncementVo> teaching() throws Exception {
+        return mapper.selectAnnouncements(Constants.TEACHING_PROFESSION);
     }
 
-    @RequestMapping(value = "/teacher.do", method = RequestMethod.POST)
-    public String teacher() throws Exception {
-        return saintAnnouncement.announcementJsonString(Constants.TEACHER_RECRUIT);
+    @RequestMapping(value = "/teacher_recruit.do", method = RequestMethod.POST)
+    public @ResponseBody List<AnnouncementVo> teacher() throws Exception {
+        return mapper.selectAnnouncements(Constants.TEACHER_RECRUIT);
     }
 
     @RequestMapping(value = "/volunteer.do", method = RequestMethod.POST)
-    public String volunteer() throws Exception {
-        return saintAnnouncement.announcementJsonString(Constants.VOLUNTEER);
+    public @ResponseBody List<AnnouncementVo> volunteer() throws Exception {
+        return mapper.selectAnnouncements(Constants.VOLUNTEER);
     }
 
-    @RequestMapping(value = "/extras.do", method = RequestMethod.POST)
-    public String extras() throws Exception {
-        return saintAnnouncement.announcementJsonString(Constants.ETC);
+    @RequestMapping(value = "/etc.do", method = RequestMethod.POST)
+    public @ResponseBody List<AnnouncementVo> extras() throws Exception {
+        return mapper.selectAnnouncements(Constants.ETC);
     }
 
     @RequestMapping(value = "/covid19.do", method = RequestMethod.POST)
