@@ -7,10 +7,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -19,7 +21,7 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
-    @RequestMapping("/postArticle.do")
+    @RequestMapping(value = "/postArticle.do", method = RequestMethod.POST)
     public boolean postArticle(@RequestBody BoardVo boardVo, HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession();
 
@@ -30,5 +32,10 @@ public class BoardController {
         boardService.postArticle(postMemberInfo, boardVo);
 
         return true;
+    }
+
+    @RequestMapping(value = "/getArticles.do", method = RequestMethod.POST)
+    public List<BoardVo> getArticles() throws Exception {
+        return boardService.getArticles();
     }
 }

@@ -6,9 +6,10 @@ import com.ssuzalal.project.vo.BoardVo;
 import com.ssuzalal.project.vo.MemberVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
@@ -16,17 +17,21 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.List;
+import java.util.UUID;
 
+@Service
 @Slf4j
 public class BoardServiceImpl implements BoardService {
     @Autowired
     private BoardMapper mapper;
 
-    @Resource(name = "article.path")
+    @Value("article.path")
     private String articlePath;
 
     @Override
     public void postArticle(MemberVo member, BoardVo article) throws Exception {
+        article.setBoardId(UUID.randomUUID().toString());
         mapper.addArticle(article);
 
         JSONObject articleInfo = new JSONObject();
@@ -41,8 +46,27 @@ public class BoardServiceImpl implements BoardService {
             buffer.put(charset.encode(articleInfo.toString()));
 
             channel.write(buffer);
+
         } catch(Exception e) {
             log.info(e.getMessage());
         }
+    }
+
+    @Override
+    public boolean deleteArticle(MemberVo member, BoardVo article) throws Exception {
+        article.setId(member.getId());
+        article.setPassword(member.getPassword());
+
+        int foundArticle = mapper.selectArticle(article);
+        if(foundArticle != 1) return false;
+
+        mapper.deleteArticle(article);
+
+        return true;
+    }
+
+    @Override
+    public List<BoardVo> getArticles() throws Exception {
+        return mapper.selectAllArticles();
     }
 }
