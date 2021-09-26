@@ -76,7 +76,7 @@ public class AnnouncementController {
     }
 
     @RequestMapping(value = "/covid19.do", method = RequestMethod.POST)
-    public String covid19() throws Exception {
-        return saintAnnouncement.announcementJsonString(Constants.COVID19);
+    public @ResponseBody List<AnnouncementVo> covid19() throws Exception {
+        return mapper.selectAnnouncements(Constants.COVID19);
     }
 }

@@ -26,18 +26,22 @@ public class BoardServiceImpl implements BoardService {
     @Autowired
     private BoardMapper mapper;
 
-    @Value("article.path")
+    @Value("${article.path}")
     private String articlePath;
 
     @Override
     public void postArticle(MemberVo member, BoardVo article) throws Exception {
         article.setBoardId(UUID.randomUUID().toString());
-        mapper.addArticle(article);
+        article.setId(member.getId()); article.setPassword(member.getPassword());
+
+        mapper.insertArticle(article);
+
+/* sleep until problem is solved. save in database with longtext field rather than save as json file.
 
         JSONObject articleInfo = new JSONObject();
         articleInfo.put("articleInfo", article);
 
-        Path path = Paths.get(articlePath);
+        Path path = Paths.get(articlePath + article.getBoardId() + ".txt");
 
         try (FileChannel channel = FileChannel.open(path, StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.APPEND)) {
             ByteBuffer buffer = ByteBuffer.allocateDirect(1024 * 1024);
@@ -50,6 +54,7 @@ public class BoardServiceImpl implements BoardService {
         } catch(Exception e) {
             log.info(e.getMessage());
         }
+ */
     }
 
     @Override

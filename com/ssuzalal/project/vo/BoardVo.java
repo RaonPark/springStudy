@@ -5,7 +5,9 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 
 @Builder
 @AllArgsConstructor
@@ -25,6 +27,9 @@ public class BoardVo {
 
     @NotNull
     private String content;
+
+    @NotEmpty
+    private Timestamp postedTime;
 
     public String getId() {
         return id;
@@ -64,5 +69,13 @@ public class BoardVo {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Timestamp getPostedTime() {
+        return postedTime;
+    }
+
+    public void setPostedTime(Timestamp postedTime) {
+        this.postedTime = postedTime;
     }
 }
