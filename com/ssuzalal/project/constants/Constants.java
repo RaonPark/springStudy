@@ -8,6 +8,7 @@ public class Constants {
 
     // Selenium
     public final static String SAINT_URL = "https://scatch.ssu.ac.kr/공지사항/?f&category=%s&keyword";
+    public final static String CSE_SSU_URL = "http://cse.ssu.ac.kr/03_sub/01_sub.htm";
     public final static String BACHELOR = "학사";
     public final static String SCHOLARSHIP = "장학";
     public final static String EXCHANGE = "국제교류";
@@ -19,6 +20,8 @@ public class Constants {
     public final static String VOLUNTEER = "봉사";
     public final static String ETC = "기타";
     public final static String COVID19 = "코로나19-관련-소식";
+    public final static String CSE = "컴퓨터학부";
+
     public final static String EDGE_DRIVER_PATH = "src/main/resources/driver/msedgedriver_93.exe";
     public final static String EDGE_DRIVER = "webdriver.edge.driver";
     public final static String PROGRESS = "진행";

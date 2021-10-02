@@ -3,17 +3,13 @@ package com.ssuzalal.project.aop;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
 @Aspect
 public class TestAspect {
-
     @AfterThrowing(value = "@annotation(org.springframework.stereotype.Controller)", throwing = "exception")
     public void controllerErrorHandler(JoinPoint jp, Throwable exception) {
         try {

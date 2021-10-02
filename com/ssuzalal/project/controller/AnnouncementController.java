@@ -79,4 +79,9 @@ public class AnnouncementController {
     public @ResponseBody List<AnnouncementVo> covid19() throws Exception {
         return mapper.selectAnnouncements(Constants.COVID19);
     }
+
+    @RequestMapping(value = "/cse.do", method = RequestMethod.POST)
+    public @ResponseBody List<AnnouncementVo> cse() throws Exception {
+        return mapper.selectAnnouncements(Constants.CSE);
+    }
 }
